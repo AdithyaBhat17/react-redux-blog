@@ -14,7 +14,7 @@ class MyArticles extends Component {
   getPopularTags = () => {
     let tags = [];
     try {
-      let _ = this.props.articles?.forEach(
+      this.props.articles.forEach(
         article => (tags = [...new Set([...tags, ...article.tag_list])])
       );
       return tags?.map((tag, index) => (
