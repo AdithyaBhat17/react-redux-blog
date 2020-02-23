@@ -5,15 +5,16 @@ import { Card, Grid } from "semantic-ui-react";
 
 class MyArticles extends Component {
   componentDidMount() {
-    this.props._getUserArticles(
-      "https://cors-anywhere.herokuapp.com/https://dev.to/api/articles?username=ben"
+    this.props.getUserArticles(
+      "https://cors-anywhere.herokuapp.com/https://dev.to/api/articles?username=ben",
+      "GET"
     );
   }
 
   getPopularTags = () => {
     let tags = [];
     try {
-      this.props.articles.forEach(
+      let _ = this.props.articles?.forEach(
         article => (tags = [...new Set([...tags, ...article.tag_list])])
       );
       return tags?.map((tag, index) => (
@@ -74,11 +75,8 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    _getUserArticles: (url, method = "GET") =>
-      dispatch(getUserArticles(url, method))
-  };
-}
+const mapDispatchToProps = {
+  getUserArticles
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyArticles);
