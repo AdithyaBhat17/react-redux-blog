@@ -1,65 +1,28 @@
 import React, { Component, Fragment } from "react";
-import { getUserArticles } from "../actions/articles";
 import { connect } from "react-redux";
-import { Card, Grid } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
+
+import { getUserArticles } from "../actions";
+import ArticlesList from './ArticlesList';
 
 class MyArticles extends Component {
   componentDidMount() {
-    this.props._getUserArticles(
-      "https://cors-anywhere.herokuapp.com/https://dev.to/api/articles?username=ben"
-    );
+    this.props.getUserArticles();
   }
 
-  getPopularTags = () => {
-    let tags = [];
-    try {
-      this.props.articles.forEach(
-        article => (tags = [...new Set([...tags, ...article.tag_list])])
-      );
-      return tags?.map((tag, index) => (
-        <Card.Content key={index}>
-          <p>#{tag}</p>
-        </Card.Content>
-      ));
-    } catch (error) {
-      console.error("Error while fetching your popular tags :(", error);
-      return tags;
-    }
-  };
-
-  getCardDetails = article => (
-    <Card key={article.id} fluid>
-      <Card.Content>
-        <Card.Header as="h4">{article.title}</Card.Header>
-        <Card.Meta>
-          {article.tag_list?.map((tag, index) => (
-            <span key={index}>#{tag}</span>
-          ))}
-        </Card.Meta>
-      </Card.Content>
-    </Card>
-  );
-
   render() {
+    const { articles } = this.props;
+
     return (
       <Fragment>
         <h3>My Articles</h3>
         <Grid>
           <Grid.Row>
             <Grid.Column width={12}>
-              <Card.Group>
-                {this.props.articles?.map(article =>
-                  this.getCardDetails(article)
-                ) ?? null}
-              </Card.Group>
+              <ArticlesList articles={articles} />
             </Grid.Column>
             <Grid.Column width={4}>
-              <Card>
-                <Card.Content>
-                  <Card.Header as="h6">Trending topics for you</Card.Header>
-                  {this.getPopularTags() ?? null}
-                </Card.Content>
-              </Card>
+              { /* @todo Recent Posts Card */}
             </Grid.Column>
           </Grid.Row>
         </Grid>
@@ -68,17 +31,10 @@ class MyArticles extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps({ articles }) {
   return {
-    articles: state.articles.articles
+    articles: articles.user
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    _getUserArticles: (url, method = "GET") =>
-      dispatch(getUserArticles(url, method))
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(MyArticles);
+export default connect(mapStateToProps, { getUserArticles })(MyArticles);
