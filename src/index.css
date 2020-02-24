@@ -1,0 +1,12 @@
+.tag-selected {
+    color: blue;
+    font-weight: 800;
+}
+
+.tag {
+    color: grey;
+}
+
+.tag:hover {
+    font-weight: 800;
+}
