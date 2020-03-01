@@ -1,4 +1,4 @@
-export const fetcher = async (url, method) => {
+export const fetcher = async (url, method = "GET") => {
   try {
     const response = await fetch(url, {
       method,
@@ -9,6 +9,6 @@ export const fetcher = async (url, method) => {
     });
     return await response.json();
   } catch (error) {
-    return error;
+    console.error(error);
   }
 };
