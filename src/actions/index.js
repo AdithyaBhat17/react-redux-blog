@@ -2,7 +2,9 @@ import {
   getUserArticles,
   getPublishedArticles,
   toggleTagsSelection,
-  clearFilters
+  clearFilters,
+  getArticle,
+  clearCurrentArticle
 } from "./articles";
 
 import { userAuth, userAuthenticated } from "./auth";
@@ -13,5 +15,7 @@ export {
   toggleTagsSelection,
   clearFilters,
   userAuth,
-  userAuthenticated
+  userAuthenticated,
+  getArticle,
+  clearCurrentArticle
 };

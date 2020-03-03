@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import { Container } from "semantic-ui-react";
 import { Switch, Route } from "react-router-dom";
+import { connect } from "react-redux";
 
 import Feed from "./Feed";
 import MyArticles from "./MyArticles";
 import NewArticle from "./NewArticle";
 import Login from "./Login";
 import ProtectedRoute from "./ProtectedRoute";
+import Article from './Article';
 import client from "../utils/firebase";
-import { connect } from "react-redux";
 
 import { userAuthenticated } from "../actions";
 
@@ -38,6 +39,12 @@ class Content extends Component {
             isAuthenticated={isAuthenticated}
             exact
             component={MyArticles}
+          />
+          <ProtectedRoute
+            path="/articles/:articleId"
+            component={Article}
+            isAuthenticated={isAuthenticated}
+            exact
           />
           <Route path="/articles/new" exact component={NewArticle} />
           <Route path="/login" exact component={Login} />
