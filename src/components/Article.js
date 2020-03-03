@@ -25,7 +25,7 @@ class Article extends Component {
         return (
             <Grid>
                 <Grid.Column width={12}>
-                    <Header as='h1'>{article?.title}</Header>
+                    <Header className="article-page-title" as='h1'>{article?.title}</Header>
                     {this.renderTags()}
                     <Divider />
                     <Container textAlign='justified'>

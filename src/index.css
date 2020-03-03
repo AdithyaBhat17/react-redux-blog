@@ -49,6 +49,10 @@ li {
     cursor: default !important;
 }
 
+.article-page-title {
+    font-size: 48px !important;
+}
+
 @media screen and (max-width: 768px) {
     .login-form {
         width: 90%;
