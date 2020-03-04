@@ -7,7 +7,7 @@ import {
   clearCurrentArticle
 } from "./articles";
 
-import { userAuth, userAuthenticated } from "./auth";
+import { userAuth, userAuthenticated, logout } from "./auth";
 
 export {
   getUserArticles,
@@ -17,5 +17,6 @@ export {
   userAuth,
   userAuthenticated,
   getArticle,
-  clearCurrentArticle
+  clearCurrentArticle,
+  logout
 };

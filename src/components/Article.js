@@ -7,7 +7,7 @@ import { getArticle, clearCurrentArticle } from '../actions';
 class Article extends Component {
 
     componentDidMount() {
-        const { articleId } = this.props.computedMatch.params;
+        const { articleId } = this.props.match.params;
         this.props.getArticle(articleId);
     }
 
@@ -17,7 +17,7 @@ class Article extends Component {
 
     renderTags = () => {
         const { article } = this.props;
-        return article?.tags?.map(tag => <Label color='blue' horizontal>{`#${tag}`}</Label>)
+        return article?.tags?.map((tag, index) => <Label key={index} color='blue' horizontal>{`#${tag}`}</Label>)
     }
 
     render() {

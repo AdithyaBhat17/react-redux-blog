@@ -10,10 +10,5 @@ export default {
             name: 'articles',
             path: '/articles'
         },
-        {
-            title: 'Login',
-            name: 'login',
-            path: '/login'
-        },
     ]
 };

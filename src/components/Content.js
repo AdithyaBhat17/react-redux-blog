@@ -40,10 +40,9 @@ class Content extends Component {
             exact
             component={MyArticles}
           />
-          <ProtectedRoute
+          <Route
             path="/articles/:articleId"
             component={Article}
-            isAuthenticated={isAuthenticated}
             exact
           />
           <Route path="/articles/new" exact component={NewArticle} />
