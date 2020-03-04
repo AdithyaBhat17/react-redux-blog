@@ -1,4 +1,4 @@
-import { USER_AUTH, USER_AUTHENTICATED } from "../actions/constants";
+import { USER_AUTH, USER_AUTHENTICATED, USER_LOGGED_OUT } from "../actions/constants";
 
 export const auth = (state = {}, action) => {
   switch (action.type) {
@@ -19,6 +19,13 @@ export const auth = (state = {}, action) => {
         isAuthenticated: action.user ? true : false,
         user: action.user
       };
+    case USER_LOGGED_OUT:
+      return {
+        ...state,
+        isAuthenticated: false,
+        user: undefined,
+        message: undefined
+      }
     default:
       return state;
   }

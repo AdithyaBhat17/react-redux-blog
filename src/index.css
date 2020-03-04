@@ -36,6 +36,23 @@ li {
     text-decoration: underline;
 }
 
+.date {
+    color: #bababc;
+    font-size: 12px;
+}
+
+.article-title {
+    color: black !important;
+}
+
+.article-title:hover {
+    cursor: default !important;
+}
+
+.article-page-title {
+    font-size: 48px !important;
+}
+
 @media screen and (max-width: 768px) {
     .login-form {
         width: 90%;

@@ -3,7 +3,9 @@ import {
   PUBLISHED_ARTICLES,
   ADD_FILTER_TAG,
   REMOVE_FILTER_TAG,
-  CLEAR_FILTERS
+  CLEAR_FILTERS,
+  PUBLISHED_ARTICLE,
+  CLEAR_CURRENT_ARTICLE
 } from '../actions/constants';
 
 const articlesState = {
@@ -34,6 +36,10 @@ export const articles = (state = articlesState, action) => {
       }
     case CLEAR_FILTERS:
       return { ...state, filterTags: [] }
+    case PUBLISHED_ARTICLE:
+      return { ...state, current: action.payload }
+    case CLEAR_CURRENT_ARTICLE:
+      return { ...state, current: undefined }
     default:
       return state;
   }
