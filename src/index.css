@@ -1,3 +1,10 @@
+pre {
+    background-color: #bababc;
+    padding: 10px;
+    border-radius: 5px;
+    font-family: monospace;
+}
+
 .tag-selected {
     color: blue;
     font-weight: 800;
