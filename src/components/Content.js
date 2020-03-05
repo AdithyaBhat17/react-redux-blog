@@ -1,26 +1,30 @@
 import React, { Component } from "react";
-import { Container } from "semantic-ui-react";
-import { Switch, Route } from "react-router-dom";
-import { connect } from "react-redux";
+import { Container, Button } from "semantic-ui-react";
+import { Switch, Route, Link, BrowserRouter } from "react-router-dom";
 
 import Feed from "./Feed";
 import MyArticles from "./MyArticles";
 import NewArticle from "./NewArticle";
 import Login from "./Login";
 import ProtectedRoute from "./ProtectedRoute";
-import Article from './Article';
+import Article from "./Article";
 import client from "../utils/firebase";
-
-import { userAuthenticated } from "../actions";
 
 class Content extends Component {
   state = {
-    isAuthenticated: false,
     user: null
   };
   componentDidMount() {
     this.observer = client.auth().onAuthStateChanged(user => {
-      user && this.props.userAuthenticated(user);
+      if (user) {
+        this.props.setAuthenticated(true);
+        this.setState({
+          user
+        });
+      } else {
+        this.props.setAuthenticated(false);
+        this.setState({ user: null });
+      }
     });
   }
 
@@ -29,36 +33,60 @@ class Content extends Component {
   }
 
   render() {
-    let { isAuthenticated } = this.props;
+    let { isAuthenticated, setAuthenticated } = this.props;
     return (
       <Container>
-        <Switch>
-          <Route path="/" exact component={Feed} />
-          <ProtectedRoute
-            path="/articles"
-            isAuthenticated={isAuthenticated}
-            exact
-            component={MyArticles}
-          />
-          <Route
-            path="/articles/:articleId"
-            component={Article}
-            exact
-          />
-          <Route path="/articles/new" exact component={NewArticle} />
-          <Route path="/login" exact component={Login} />
-        </Switch>
+        <BrowserRouter>
+          <Switch>
+            <Route path="/" exact component={Feed} />
+            <ProtectedRoute
+              path="/articles"
+              isAuthenticated={isAuthenticated}
+              exact
+              component={MyArticles}
+            />
+            <Route
+              path="/articles/:articleId"
+              render={props => (
+                <Article
+                  isAuthenticated={isAuthenticated}
+                  setAuthenticated={setAuthenticated}
+                  {...props}
+                />
+              )}
+              exact
+            />
+            <ProtectedRoute
+              isAuthenticated={isAuthenticated}
+              path="/new"
+              exact
+              component={props => <NewArticle {...props} />}
+            />
+            <Route
+              path="/login"
+              exact
+              render={props => (
+                <Login
+                  isAuthenticated={isAuthenticated}
+                  setAuthenticated={setAuthenticated}
+                  {...props}
+                />
+              )}
+            />
+          </Switch>
+          <Link className="add-widget" to="new">
+            <Button
+              className="add-widget"
+              circular
+              color="black"
+              icon="plus"
+              size="huge"
+            />
+          </Link>
+        </BrowserRouter>
       </Container>
     );
   }
 }
 
-const mapStateToProps = ({ auth }) => {
-  let { isAuthenticated, user } = auth;
-  return {
-    isAuthenticated,
-    user
-  };
-};
-
-export default connect(mapStateToProps, { userAuthenticated })(Content);
+export default Content;

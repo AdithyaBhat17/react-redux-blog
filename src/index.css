@@ -60,6 +60,19 @@ li {
     font-size: 48px !important;
 }
 
+.add-widget {
+    position: fixed;
+    right: 5%;
+    bottom: 5%;
+    font-size: 2em;
+}
+
+.form-message {
+    width: 50%;
+    text-align: center;
+    margin: 0 auto !important;
+}
+
 @media screen and (max-width: 768px) {
     .login-form {
         width: 90%;

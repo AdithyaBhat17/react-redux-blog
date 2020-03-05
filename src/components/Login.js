@@ -1,15 +1,19 @@
 import React, { Component, Fragment } from "react";
 import { Form, Button, Message } from "semantic-ui-react";
-import { userAuth } from "../actions/auth";
-import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
+import client from "../utils/firebase";
 
 class Login extends Component {
   state = {
+    loading: false,
     newUser: false,
     user: {
       email: "",
       password: ""
+    },
+    message: {
+      error: false,
+      text: ""
     }
   };
 
@@ -22,26 +26,47 @@ class Login extends Component {
     });
   };
 
+  componentDidMount() {
+    this._mounted = true;
+  }
+
+  componentWillUnmount() {
+    this._mounted = false;
+  }
+
   handleAuth = async event => {
     event.preventDefault();
     let {
       newUser,
       user: { email, password }
     } = this.state;
-    this.props.userAuth(newUser, email, password);
+
+    this.setState({ loading: true });
+
+    try {
+      if (newUser) {
+        await client.auth().createUserWithEmailAndPassword(email, password);
+        this.props.setAuthenticated(true);
+      } else {
+        await client.auth().signInWithEmailAndPassword(email, password);
+        this.props.setAuthenticated(true);
+      }
+    } catch (error) {
+      this.setState({ message: { error: true, text: error.message } });
+    }
+    this._mounted && this.setState({ loading: false });
   };
 
   toggleAuthType = () =>
     this.setState(prevState => ({ newUser: !prevState.newUser }));
 
   render() {
+    let { loading, message, newUser, user } = this.state;
+
     let {
-      loading,
-      message,
-      location: { state: routeState },
-      isAuthenticated
+      isAuthenticated,
+      location: { state: routeState }
     } = this.props;
-    let { newUser, user } = this.state;
 
     const { from } = routeState || { from: { pathname: "/articles" } };
 
@@ -51,7 +76,7 @@ class Login extends Component {
 
     return (
       <Fragment>
-        {message?.text !== undefined ? (
+        {message?.text ? (
           <Message error={message.error} success={!message.error}>
             {message.text}
           </Message>
@@ -90,13 +115,4 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = ({ auth }) => {
-  let { loading, message, isAuthenticated } = auth;
-  return {
-    loading,
-    message,
-    isAuthenticated
-  };
-};
-
-export default connect(mapStateToProps, { userAuth })(Login);
+export default Login;
