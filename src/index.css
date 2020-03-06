@@ -28,9 +28,14 @@ li {
     border-radius: 50%;
 }
 
-.login-form {
+.login-form,
+.form-message {
     width: 50%;
-    margin: 50px auto;
+    margin: 50px auto !important;
+}
+
+.form-message {
+    text-align: center;
 }
 
 .signup-link {
@@ -60,8 +65,17 @@ li {
     font-size: 48px !important;
 }
 
+.add-widget {
+    position: fixed;
+    right: 5%;
+    bottom: 5%;
+    font-size: 2em;
+}
+
 @media screen and (max-width: 768px) {
-    .login-form {
+
+    .login-form,
+    .form-message {
         width: 90%;
     }
 }
