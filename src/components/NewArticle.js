@@ -50,23 +50,16 @@ export default withRouter(
 
       try {
         let tags = article.tags?.split(",").map(tag => tag.trim());
-        await fetch(
-          "https://corsanywhere.herokuapp.com/https://dev.to/api/articles",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "api-key": process.env.REACT_APP_API_KEY
-            },
-            body: JSON.stringify({
-              ...article,
-              tags
-            })
+        const body = {
+          article: {
+            ...article,
+            tags
           }
-        );
+        };
+        await fetcher("https://corsanywhere.herokuapp.com/https://dev.to/api/articles", "POST", body);
         this.props.history.push("/articles");
       } catch (error) {
-        console.log(error);
+        console.error(error);
         this.setState({
           loading: false,
           message: {
