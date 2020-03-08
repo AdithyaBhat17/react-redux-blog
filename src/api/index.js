@@ -11,5 +11,6 @@ export const fetcher = async (url, method = "GET", body) => {
     return await response.json();
   } catch (error) {
     console.error(error);
+    throw new Error(error);
   }
 };

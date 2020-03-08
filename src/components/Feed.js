@@ -8,6 +8,7 @@ import { fetcher } from "../api";
 
 class Feed extends Component {
   state = {
+    tags: [],
     articles: [],
     filterTags: []
   };
@@ -28,12 +29,14 @@ class Feed extends Component {
   componentDidMount() {
     fetcher(
       "https://cors-anywhere.herokuapp.com/https://dev.to/api/articles"
-    ).then(articles => this.setState({ articles }));
+    ).then(articles => {
+      const tags = getPopularTags(articles);
+      this.setState({ articles, tags })
+    });
   }
 
   render() {
     const { articles, filterTags } = this.state;
-    const tags = getPopularTags(articles);
     const filteredArticles = getFilteredArticles(articles, filterTags);
     return (
       <Fragment>
@@ -42,7 +45,7 @@ class Feed extends Component {
           <Grid.Row>
             <Grid.Column width={4}>
               <TagsCard
-                tags={tags}
+                tags={this.state.tags}
                 handleFilter={this.toggleTagsSelection}
                 selectedTags={filterTags}
                 clearFilters={this.clearFilters}
