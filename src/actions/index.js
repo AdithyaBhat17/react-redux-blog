@@ -4,12 +4,16 @@ import {
   toggleTagsSelection,
   clearFilters,
   getArticle,
-  clearCurrentArticle
+  clearCurrentArticle,
+  createNewArticle,
+  setError,
+  setLoading
 } from "./articles";
 
 import { userAuth, userAuthenticated, logout } from "./auth";
 
 export {
+  createNewArticle,
   getUserArticles,
   getPublishedArticles,
   toggleTagsSelection,
@@ -18,5 +22,7 @@ export {
   userAuthenticated,
   getArticle,
   clearCurrentArticle,
-  logout
+  logout,
+  setError,
+  setLoading
 };

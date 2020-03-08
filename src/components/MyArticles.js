@@ -35,7 +35,7 @@ class MyArticles extends Component {
 
 function mapStateToProps({ articles }) {
   return {
-    articles: articles.user,
+    articles: articles.userArticles,
     recent: articles.published
   };
 }
