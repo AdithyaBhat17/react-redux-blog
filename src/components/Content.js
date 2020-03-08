@@ -14,7 +14,7 @@ export default class Content extends Component {
                 <Switch>
                     <Route path="/" exact component={Feed} />
                     <Route path="/articles" exact component={MyArticles} />
-                    <Route path="/articles/new" exact component={NewArticle} />
+                    <Route path="/new" exact component={NewArticle} />
                     <Route path="/login" exact component={Login} />
                 </Switch>
             </Container>
