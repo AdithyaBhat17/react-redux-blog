@@ -1,0 +1,81 @@
+pre {
+    background-color: #bababc;
+    padding: 10px;
+    border-radius: 5px;
+    font-family: monospace;
+}
+
+.tag-selected {
+    color: blue;
+    font-weight: 800;
+}
+
+.tag {
+    color: grey;
+}
+
+.tag:hover {
+    font-weight: 800;
+}
+
+li {
+    list-style: none;
+    margin-top: 10px;
+}
+
+.mini,
+.image {
+    border-radius: 50%;
+}
+
+.login-form,
+.form-message {
+    width: 50%;
+    margin: 50px auto !important;
+}
+
+.form-message {
+    text-align: center;
+}
+
+.signup-link {
+    display: block;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.signup-link:hover {
+    text-decoration: underline;
+}
+
+.date {
+    color: #bababc;
+    font-size: 12px;
+}
+
+.article-title {
+    color: black !important;
+}
+
+.article-title:hover {
+    cursor: default !important;
+}
+
+.article-page-title {
+    font-size: 48px !important;
+}
+
+.add-widget {
+    position: fixed;
+    right: 5%;
+    bottom: 5%;
+    font-size: 2em;
+}
+
+@media screen and (max-width: 768px) {
+
+    .login-form,
+    .form-message {
+        width: 90%;
+    }
+}
