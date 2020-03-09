@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Menu, Header } from "semantic-ui-react";
 
-import history from "../history";
 import CONFIG from "../config";
 import client from "../utils/firebase";
+import { withRouter } from "react-router-dom";
 
 const loginMenu = {
   title: "Login",
@@ -22,7 +22,7 @@ class NavBar extends Component {
   };
 
   handleMenuClick = async (e, { path, name }) => {
-    path ? history.push(path) : await client.auth().signOut();
+    path ? this.props.history.push(path) : await client.auth().signOut();
     this.setState({ activeItem: name });
   };
 
@@ -58,4 +58,4 @@ class NavBar extends Component {
   }
 }
 
-export default NavBar;
+export default withRouter(NavBar);

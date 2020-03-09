@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from "react";
 import { Form, Button, Header, Message } from "semantic-ui-react";
-import { fetcher } from "../api";
 import { withRouter } from "react-router-dom";
 
 export default withRouter(
