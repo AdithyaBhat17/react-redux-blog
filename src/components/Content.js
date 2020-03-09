@@ -48,7 +48,7 @@ class Content extends Component {
           />
           <Route path="/login" exact component={Login} />
         </Switch>
-        <Link className="add-widget" to="new">
+        <Link className="add-widget" to="/new">
           <Button
             className="add-widget"
             circular
