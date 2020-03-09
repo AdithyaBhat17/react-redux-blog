@@ -5,17 +5,6 @@ import CONFIG from "../config";
 import client from "../utils/firebase";
 import { withRouter } from "react-router-dom";
 
-const loginMenu = {
-  title: "Login",
-  name: "login",
-  path: "/login"
-};
-
-const logoutMenu = {
-  title: "Logout",
-  name: "logout"
-};
-
 class NavBar extends Component {
   state = {
     activeItem: undefined
@@ -26,10 +15,8 @@ class NavBar extends Component {
     this.setState({ activeItem: name });
   };
 
-  renderMenuItems = () => {
-    const { isAuthenticated } = this.props;
-    const menu = [...CONFIG.menu, isAuthenticated ? logoutMenu : loginMenu];
-    return menu.map((item, index) => (
+  renderMenuItems = () =>
+    CONFIG.menu.map((item, index) => (
       <Menu.Item
         key={index}
         as="a"
@@ -44,7 +31,6 @@ class NavBar extends Component {
         {item.title}
       </Menu.Item>
     ));
-  };
 
   render() {
     return (
